@@ -17,8 +17,6 @@ import Loader from "../components/Loader";
 import Message from "../components/Message";
 
 function ProductScreen() {
-  const navigate = useNavigate();
-
   const { id } = useParams();
   const [qty, setQty] = useState(1);
 
@@ -30,6 +28,7 @@ function ProductScreen() {
     dispatch(listProductDetails(id));
   }, [id, dispatch]);
 
+  const navigate = useNavigate();
   const addToCartHandler = () => {
     navigate(`/cart/${id}?qty=${qty}`);
   };
@@ -117,7 +116,7 @@ function ProductScreen() {
                 <ListGroup.Item>
                   <Row>
                     <Button
-                      onClick={addToCartHandler}
+                      onClick={() => addToCartHandler(id, qty)}
                       className="btn-block"
                       type="button"
                       disabled={product.countInStock === 0}
